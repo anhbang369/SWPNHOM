@@ -8,7 +8,6 @@ package controller;
 import issueAccountant.DAOIssue;
 import issueAccountant.UserIssueU;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,15 +21,15 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "UpdateIssueController", urlPatterns = {"/UpdateIssueController"})
 public class UpdateIssueController extends HttpServlet {
 
-    private static final String ERROR="request.jsp";
-    private static final String SUCCESS="MainController?action=SearchIssue&searchIssue=&searchCustomer=";
+    private static final String ERROR="MainController?action=ShowIssueFull";
+    private static final String SUCCESS="MainController?action=ShowIssueFull";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
             int issueID = Integer.parseInt(request.getParameter("issueID"));
-            String note = request.getParameter("note");
+            String note = request.getParameter("notee");
             DAOIssue dao = new DAOIssue();
             UserIssueU user = new UserIssueU(issueID, note);
             boolean check =dao.updateIssue(user);
@@ -38,7 +37,7 @@ public class UpdateIssueController extends HttpServlet {
                 url = SUCCESS; 
             }
         } catch (Exception e) {
-            log("Error at UpdateController: " + e.toString());
+            e.printStackTrace();
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

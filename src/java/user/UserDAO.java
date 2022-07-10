@@ -22,7 +22,7 @@ public class UserDAO {
 
     private static final String LOGIN = "SELECT name,role,status,phoneNumber FROM Account WHERE accountID=? AND password=?"; 
     private static final String SHOW_PRODUCT = "SELECT productID,model,brand,status,type,width,depth,height,screenSize,voiceRemote,bluetooth,manufacturingDate,madeIn,quantity,name FROM Product WHERE productID like ? ";
-    private static final String SHOW_PRODUCT_NOTIFY = "SELECT p.name FROM Product AS p,Inventory AS i,Bin AS b WHERE p.productID=i.productID AND i.inventoryID=b.inventoryID GROUP BY p.name HAVING SUM(b.quantity) <= 10";
+    private static final String SHOW_PRODUCT_NOTIFY = "SELECT p.name FROM Product AS p, Inventory AS i WHERE p.quantity>=i.quantityOnHand AND p.productID=i.productID";
     private static final String SHOW_PRODUCT_PRO = "SELECT productID,model,brand,status,type,width,depth,height,screenSize,voiceRemote,bluetooth,manufacturingDate,madeIn,quantity,name FROM Product WHERE productID like ? AND name like ? AND brand like ? AND model like ?";
 
     public UserDTO checkLogin(String accountID, String password) throws SQLException {

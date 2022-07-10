@@ -10,7 +10,6 @@ package receiptAccountant;
  * @author 84348
  */
 public class UserReceiptVirtual {
-    public String receiptID;
     public String inputDate;
     public String status;
     public int totalQuantity;
@@ -21,22 +20,13 @@ public class UserReceiptVirtual {
     public UserReceiptVirtual() {
     }
 
-    public UserReceiptVirtual(String receiptID, String inputDate, String status, int totalQuantity, String note, String accountantID, String stockKeeperID) {
-        this.receiptID = receiptID;
+    public UserReceiptVirtual(String inputDate, String status, int totalQuantity, String note, String accountantID, String stockKeeperID) {
         this.inputDate = inputDate;
         this.status = status;
         this.totalQuantity = totalQuantity;
         this.note = note;
         this.accountantID = accountantID;
         this.stockKeeperID = stockKeeperID;
-    }
-
-    public String getReceiptID() {
-        return receiptID;
-    }
-
-    public void setReceiptID(String receiptID) {
-        this.receiptID = receiptID;
     }
 
     public String getInputDate() {

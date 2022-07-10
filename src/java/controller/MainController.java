@@ -34,14 +34,8 @@ public class MainController extends HttpServlet {
     private static final String SEARCH_RECEIPT_DETAIL_CONTROLLER = "SeacrhReceiptDetailController";
     private static final String EXPROT = "Export";
     private static final String EXPROT_CONTROLLER = "ExportController";
-    private static final String SHOW_REQUEST = "ShowRequest";
-    private static final String SHOW_REQUEST_CONTROLLER = "ShowRequestController";
-    private static final String UPDATE_REQUEST = "UpdateRequest";
-    private static final String UPDATE_REQUEST_CONTROLLER = "UpdateRequestController";
     private static final String SHOW_REPORT = "ShowReport";
     private static final String SHOW_REPORT_CONTROLLER = "ShowReportController";
-    private static final String SORT_REPORT = "SortReport";
-    private static final String SORT_REPORT_CONTROLLER = "SortReportController";
     private static final String SEARCH_INVENTORY = "SearchInventory";
     private static final String SEARCH_INVENTORY_CONTROLLER = "SearchInventoryController";
     private static final String SEARCH_INVENTORY_F = "SearchInventoryF";
@@ -66,10 +60,6 @@ public class MainController extends HttpServlet {
     private static final String REMOVE_RECEIPT_DETAIL_VIRTUAL_CONTROLLER = "RemoveReceiptDetailVirtualController";
     private static final String UPDATE_RECEIPT_DETAIL_VIRTUAL = "UpdateReceiptDetailVirtual";
     private static final String UPDATE_RECEIPT_DETAIL_VIRTUAL_CONTROLLER = "UpdateReceiptDetailVirtualController";
-    private static final String REMOVE_ALL_RECEIPT = "BackReceipt";
-    private static final String REMOVE_ALL_RECEIPT_CONTROLLER = "RemoveAllReceiptController";
-    private static final String REMOVE_ALL_INVENTORY = "BackInventory";
-    private static final String REMOVE_ALL_INVENTORY_CONTROLLER = "RemoveAllInventoryController";
     private static final String SEARCH_ORDER = "SeacrhOrder";
     private static final String SEARCH_ORDER_CONTROLLER = "SeacrhOrderController";
     private static final String INSERT_ISSUE = "InsertIssue";
@@ -90,6 +80,32 @@ public class MainController extends HttpServlet {
     private static final String SEARCH_INVENTORY_ALPHA_CONTROLLER = "SearchInventoryAlphaController";
     private static final String UPDATE_RECEIPT = "Conclusion";
     private static final String UPDATE_RECEIPT_CONTROLLER = "UpdateReceiptController";
+    private static final String SHOW_ORDER_DEATIL = "ShowDetailOrder";
+    private static final String SHOW_ORDER_DEATIL_CONTROLLER = "ShowDetailOrderController";
+    private static final String SHOW_RECEIPT_DETAIL = "ShowDetailReceipt";
+    private static final String SHOW_RECEIPT_DETAIL_CONTROLLER = "ShowDetailReceiptController";
+    private static final String SHOW_INVENTORY = "ShowInventory";
+    private static final String SHOW_INVENTORY_CONTROLLER = "ShowInventoryController";
+    private static final String FILE_INVENTORY = "ExportInventory";
+    private static final String FILE_INVENTORY_CONTROLLER = "ExportInventoryController";
+    private static final String FILE_REPORT = "ExportReport";
+    private static final String FILE_REPORT_CONTROLLER = "ExportReportController";
+    private static final String FILE_ISSUE = "ExportIssue";
+    private static final String FILE_ISSUE_CONTROLLER = "ExportIssueController";
+    private static final String SHOW_ISSUE_FULL = "ShowIssueFull";
+    private static final String SHOW_ISSUE_FULL_CONTROLLER = "ShowIssueFullController";
+    private static final String SORT_RECEIPT = "SortReceipt";
+    private static final String SORT_RECEIPT_CONTROLLER = "SortReceiptController";
+    private static final String SORT_ISSUE = "SortIssue";
+    private static final String SORT_ISSUE_CONTROLLER = "SortIssueController";
+    private static final String SORT_INVENTORY = "SortInventory";
+    private static final String SORT_INVENTORY_CONTROLLER = "SortInventoryController";
+    private static final String SORT_REPORT = "SortReport";
+    private static final String SORT_REPORT_CONTROLLER = "SortReportController";
+    private static final String SORT_ORDER = "SortOrder";
+    private static final String SORT_ORDER_CONTROLLER = "SortOrderController";
+    private static final String SEARCH_ISSUE_DATE = "SearchIssueDate";
+    private static final String SEARCH_ISSUE_DATE_CONTROLLER = "SearchIssueDateController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -112,10 +128,6 @@ public class MainController extends HttpServlet {
                 url = SEARCH_RECEIPT_DETAIL_CONTROLLER;
             }else if(EXPROT.equals(action)){
                 url = EXPROT_CONTROLLER;
-            }else if(SHOW_REQUEST.equals(action)){
-                url = SHOW_REQUEST_CONTROLLER;
-            }else if(UPDATE_REQUEST.equals(action)){
-                url = UPDATE_REQUEST_CONTROLLER;
             }else if(SHOW_REPORT.equals(action)){
                 url = SHOW_REPORT_CONTROLLER;
             }else if(SORT_REPORT.equals(action)){
@@ -144,10 +156,6 @@ public class MainController extends HttpServlet {
                 url = REMOVE_RECEIPT_DETAIL_VIRTUAL_CONTROLLER;
             }else if(UPDATE_RECEIPT_DETAIL_VIRTUAL.equals(action)){
                 url = UPDATE_RECEIPT_DETAIL_VIRTUAL_CONTROLLER;
-            }else if(REMOVE_ALL_RECEIPT.equals(action)){
-                url = REMOVE_ALL_RECEIPT_CONTROLLER;
-            }else if(REMOVE_ALL_INVENTORY.equals(action)){
-                url = REMOVE_ALL_INVENTORY_CONTROLLER;
             }else if(SEARCH_ORDER.equals(action)){
                 url = SEARCH_ORDER_CONTROLLER;
             }else if(INSERT_ISSUE.equals(action)){
@@ -168,6 +176,30 @@ public class MainController extends HttpServlet {
                 url = SEARCH_INVENTORY_ALPHA_CONTROLLER;
             }else if(UPDATE_RECEIPT.equals(action)){
                 url = UPDATE_RECEIPT_CONTROLLER;
+            }else if(SHOW_ORDER_DEATIL.equals(action)){
+                url = SHOW_ORDER_DEATIL_CONTROLLER;
+            }else if(SHOW_RECEIPT_DETAIL.equals(action)){
+                url = SHOW_RECEIPT_DETAIL_CONTROLLER;
+            }else if(SHOW_INVENTORY.equals(action)){
+                url = SHOW_INVENTORY_CONTROLLER;
+            }else if(FILE_INVENTORY.equals(action)){
+                url = FILE_INVENTORY_CONTROLLER;
+            }else if(FILE_REPORT.equals(action)){
+                url = FILE_REPORT_CONTROLLER;
+            }else if(FILE_ISSUE.equals(action)){
+                url = FILE_ISSUE_CONTROLLER;
+            }else if(SHOW_ISSUE_FULL.equals(action)){
+                url = SHOW_ISSUE_FULL_CONTROLLER;
+            }else if(SORT_RECEIPT.equals(action)){
+                url = SORT_RECEIPT_CONTROLLER;
+            }else if(SORT_ISSUE.equals(action)){
+                url = SORT_ISSUE_CONTROLLER;
+            }else if(SORT_INVENTORY.equals(action)){
+                url = SORT_INVENTORY_CONTROLLER;
+            }else if(SORT_ORDER.equals(action)){
+                url = SORT_ORDER_CONTROLLER;
+            }else if(SEARCH_ISSUE_DATE.equals(action)){
+                url = SEARCH_ISSUE_DATE_CONTROLLER;
             }
         }catch(Exception e){
             e.printStackTrace();

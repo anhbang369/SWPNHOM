@@ -13,7 +13,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="js/backNoWork.js" type="text/javascript" ></script>
         <title>Create Inventory Page</title>
     </head>
     <body>
@@ -71,10 +70,10 @@
                         <input type="text" name="model" value="<%=rc.getModel()%>"/>
                     </td>
                     <td>
-                        <input type="number" name="quality" required=""/>
+                        <input type="number" name="quality" required="" min="1"/>
                     </td>
                     <td>
-                        <input type="number" name="quantityInChecking" required=""/>
+                        <input type="number" name="quantityInChecking" required="" min="1"/>
                     </td>
                     <td>
                         <input type="text" name="note" required=""/>
@@ -135,10 +134,10 @@
                     <input type="text" name="productID" value="<%= tm.getProductID()%>" readonly=""/>
                 </td>
                 <td>
-                    <input type="text" name="quality" value="<%= tm.getQuality()%>" required=""/>
+                    <input type="text" name="quality" value="<%= tm.getQuality()%>" required="" min="1"/>
                 </td>
                 <td>
-                    <input type="text" name="quantityInChecking" value="<%= tm.getQuantityInChecking()%>" required=""/>
+                    <input type="text" name="quantityInChecking" value="<%= tm.getQuantityInChecking()%>" required="" min="1"/>
                 </td>
                 <td>
                     <input type="text" name="note" value="<%= tm.getNote()%>" required=""/>
@@ -184,10 +183,6 @@
 %>
 <h2><%=errorAdd%></h2>
 
-
-<form action="MainController">
-    <input type="submit" name="action" value="BackInventory">
-</form>
 
 
 </body>

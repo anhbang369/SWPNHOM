@@ -6,7 +6,6 @@
 
 <%@page import="receiptAccountant.UserReceiptDetail"%>
 <%@page import="virtual.ListReceiptM"%>
-<%@page import="virtual.ListReceipt"%>
 <%@page import="user.UserProduct"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,7 +14,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create Receipt Detail Page</title>
-        <script src="js/backNoWork.js" type="text/javascript" ></script>
     </head>
     <body>
         <form action="MainController">
@@ -68,10 +66,10 @@
                         <input type="text" name="model" value="<%=rc.getModel()%>"/>
                     </td>
                     <td>
-                        <input type="number" name="quantityInBill" required=""/>
+                        <input type="number" name="quantityInBill" required="" min="1"/>
                     </td>
                     <td>
-                        <input type="number" name="quantityInShipping" required=""/>
+                        <input type="number" name="quantityInShipping" required="" min="1"/>
                     </td>
                     <td>
                         <input type="text" name="solution" required=""/>
@@ -130,10 +128,10 @@
                     <input type="text" name="productID" value="<%= tm.getProductID()%>" readonly=""/>
                 </td>
                 <td>
-                    <input type="text" name="quantityInBill" value="<%= tm.getQuantityInBill()%>" required=""/>
+                    <input type="text" name="quantityInBill" value="<%= tm.getQuantityInBill()%>" required="" min="1"/>
                 </td>
                 <td>
-                    <input type="text" name="quantityInShipping" value="<%= tm.getQuantityInShipping()%>" required=""/>
+                    <input type="text" name="quantityInShipping" value="<%= tm.getQuantityInShipping()%>" required="" min="1"/>
                 </td>
                 <td>
                     <input type="text" name="solution" value="<%= tm.getSolution()%>" required=""/>
@@ -187,9 +185,7 @@
         %>
         <h2><%=errorFinish%></h2>
         
-        <form action="MainController">
-    <input type="submit" name="action" value="BackReceipt">
-</form>
+        
 
 </body>
 </html>

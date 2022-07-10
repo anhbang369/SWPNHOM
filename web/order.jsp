@@ -18,11 +18,10 @@
         <title>Order Page</title>
     </head>
     <body>
-        <a href="MainController?action=ShowRequest&showRequest=&howRequest=">Request</a>
         <a href="MainController?action=SeacrhReceipt&search=">Receipt</a>
         <a href="MainController?action=SeacrhOrder&OrderI=&CustomerNam=&Addres=&PhoneNumbe=">Issue</a>
         <a href="report.jsp">Report</a>
-        <a href="MainController?action=SearchInventoryF&searchInventoryF=">Inventory Report</a>
+        <a href="MainController?action=SearchInventoryAlpha&productID=&name=">Inventory Report</a>
         <form action="MainController">
             <input type="number" name="OrderI" placeholder="OrderID"/>
             <input type="text" name="CustomerNam" placeholder="CustomerName"/>
@@ -43,7 +42,22 @@
             <input type="submit" name="action" value="SearchOrderDate"/>
         </form>
     </div>
-
+        
+        <div>
+            <i class="fa-solid fa-sort" onclick="ShowSort()"></i>
+            
+        </div>
+        
+        <div id="sortLabel" class="show_date_receipt">
+            <form action="MainController">
+                <label>Sort by: </label>
+                <select name="search">
+                    <option value="1">Customer reduce</option>
+                    <option value="2">Customer increase</option>
+                </select>
+                <input type="submit" name="action" value="SortOrder">
+            </form>
+        </div>
 
 
         <form action="#" method="post">
@@ -92,7 +106,7 @@
 
 
         <%
-            List<UserOrder> order = (List<UserOrder>) request.getAttribute("LIST_ORDER");
+            List<UserOrder> order = (List<UserOrder>) session.getAttribute("LIST_ORDER");
             if (order != null) {
                 if (order.size() > 0) {
         %>
@@ -154,6 +168,14 @@
             }
         }
     %>
+    
+    <%
+        String erro = (String) request.getAttribute("ERROR_ADD_ISSUE");
+        if (erro == null) {
+            erro = "";
+        }
+    %>
+    <h2><%=erro%></h2>
 
     <%
         String error = (String) request.getAttribute("ERROR");
@@ -162,5 +184,7 @@
         }
     %>
     <h2><%=error%></h2>
+    
+    <a href="MainController?action=SearchIssue&searchIssue=&searchCustomer=">Issue</a>
 </body>
 </html>

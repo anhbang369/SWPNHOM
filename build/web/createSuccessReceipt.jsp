@@ -14,11 +14,10 @@
         <title>Create Success Receipt Page</title>
     </head>
     <body>
-        <a href="MainController?action=ShowRequest&showRequest=&howRequest=">Request</a>
         <a href="MainController?action=SeacrhReceipt&search=">Receipt</a>
         <a href="MainController?action=SeacrhOrder&OrderI=&CustomerNam=&Addres=&PhoneNumbe=">Issue</a>
         <a href="report.jsp">Report</a>
-        <a href="MainController?action=SearchInventoryF&searchInventoryF=">Inventory Report</a>
+        <a href="MainController?action=SearchInventoryAlpha&productID=&name=">Inventory Report</a>
 
         <form action="MainController">
             <%
@@ -35,8 +34,10 @@
                         <th>Model</th>
                         <th>Brand</th>
                         <th>type</th>
+                        <th>receiptDetailID</th>
                         <th>Quantity In Bill</th>
                         <th>quantity In Shipping</th>
+                        <th>solution</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,7 +71,10 @@
                             <input type="text" name="brand" value="<%= rc.getBrand()%>" readonly=""/>
                         </td>
                         <td>
-                            <input type="text" name="type" value="<%= rc.getType()%>" readonly=""/>
+                            <input type="text" name="name" value="<%= rc.getName()%>" readonly=""/>
+                        </td>
+                        <td>
+                            <input type="number" name="receiptDetailID" value="<%= rc.getReceiptDetailID()%>" />
                         </td>
                         <td>
                             <input type="number" name="quantityInBill" value="<%= rc.getQuantityInBill()%>" />
@@ -78,13 +82,15 @@
                         <td>
                             <input type="number" name="quantityInShipping" value="<%= rc.getQuantityInShipping()%>"/>
                         </td>
+                        <td>
+                            <input type="text" name="solution" value="<%= rc.getSolution()%>"/>
+                        </td>
                 <input type="hidden" name="inputDate" value="<%= rc.getInputDate()%>" readonly=""/>
                 <input type="hidden" name="status" value="<%= rc.getStatus()%>" readonly=""/>
                 <input type="hidden" name="accountantID" value="<%= rc.getAccountantID()%>" readonly=""/>
                 <input type="hidden" name="stockKeeperID" value="<%= rc.getStockKeeperID()%>" readonly=""/>
                 <input type="hidden" name="totalQuantity" value="<%= rc.getTotalQuantity()%>" readonly=""/>
                 <input type="hidden" name="note" value="<%= rc.getNote()%>" readonly=""/>
-                <input type="hidden" name="receiptID" value="<%= rc.getReceiptID()%>" readonly=""/>
                 </tr>   
 
                 </tbody>

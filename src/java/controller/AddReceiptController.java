@@ -15,7 +15,8 @@ import javax.servlet.http.HttpSession;
 import receiptAccountant.DAOReceipt;
 import receiptAccountant.UserReceiptDetail;
 import receiptAccountant.UserReceiptVirtual;
-import virtual.ListReceipt;
+import time.Timer;
+import user.UserDTO;
 import virtual.ListReceiptM;
 
 /**
@@ -34,8 +35,8 @@ public class AddReceiptController extends HttpServlet {
         String url = ERROR;
         try {
             HttpSession session = request.getSession();
-            ListReceipt cart = (ListReceipt) session.getAttribute("VIRTUAL_RECEI_BASIC");
             ListReceiptM ca = (ListReceiptM) session.getAttribute("VIRTUAL_RECEI");
+            DAOReceipt dao = new DAOReceipt();
             boolean createReceipt = false;
             if (ca != null) {
                 if (ca.getListReceipt().size() > 0) {
@@ -43,39 +44,27 @@ public class AddReceiptController extends HttpServlet {
                     for (UserReceiptDetail tm : ca.getListReceipt().values()) {
                         a += tm.getQuantityInBill();
                     }
-                    if (cart != null) {
-                        if (cart.getListReceipt().size() > 0) {
-                            for (UserReceiptVirtual tm : cart.getListReceipt().values()) {
-                                DAOReceipt dao = new DAOReceipt();
-                                String inputDate = tm.getInputDate();
-                                String status = tm.getStatus();
-                                int totalQuantity = a;
-                                String note = tm.getNote();
-                                String accountantID = tm.getAccountantID();
-                                String stockKeeperID = request.getParameter("stockKeeperID");
-                                boolean checkS = dao.checkExistAccount(stockKeeperID);
-                                if (checkS == true) {
-                                    UserReceiptVirtual userReceipt = new UserReceiptVirtual(stockKeeperID, inputDate, status, totalQuantity, note, accountantID, stockKeeperID);
-                                    createReceipt = dao.createReceipt(userReceipt);
-                                    if (createReceipt == true) {
-                                        if (session != null) {
-                                            if (cart != null) {
-                                                session.removeAttribute("VIRTUAL_RECEI_BASIC");
-                                                url = SUCCESS;
 
-                                            }
-                                        }
-
-                                    }
-                                } else {
-                                    request.setAttribute("VIRTUAL_RECEI_ERROR", "stockKeeperID not exist. Please enter again!!");
-                                }
-
-                            }
-
+                    Timer t = new Timer();
+                    UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+                    String inputDate = t.timeNow();
+                    String status = "True";
+                    int totalQuantity = a;
+                    String note = "";
+                    String accountantID = loginUser.getAccountID();
+                    String stockKeeperID = request.getParameter("stockKeeperID");
+                    boolean checkS = dao.checkExistAccount(stockKeeperID);
+                    if (checkS == true) {
+                        UserReceiptVirtual tm = new UserReceiptVirtual(inputDate, status, totalQuantity, note, accountantID, stockKeeperID);
+                        createReceipt = dao.createReceipt(tm);
+                        if (createReceipt == true) {
+                            url = SUCCESS;
                         }
+                    } else {
+                        request.setAttribute("VIRTUAL_RECEI_ERROR", "stockKeeperID not exist. Please enter again!!");
                     }
-                }else{
+
+                } else {
                     request.setAttribute("ERROR_FINISH", "You have to add Product into Receipt");
                 }
             } else {
@@ -83,7 +72,7 @@ public class AddReceiptController extends HttpServlet {
             }
 
         } catch (Exception e) {
-            System.out.println("Error at InsertController: " + e.toString());
+            e.printStackTrace();
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

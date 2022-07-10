@@ -24,7 +24,7 @@ import virtual.ListInventory;
 public class InsertReportDetailController extends HttpServlet {
 
     private static final String ERROR = "createInventory.jsp";
-    private static final String SUCCESS = "Account.jsp";
+    private static final String SUCCESS = "MainController?action=ShowInventory";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");

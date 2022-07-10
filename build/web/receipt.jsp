@@ -4,6 +4,7 @@
     Author     : 84348
 --%>
 
+<%@page import="receiptAccountant.UserReceiptDetailS"%>
 <%@page import="user.UserNotify"%>
 <%@page import="user.UserProduct"%>
 <%@page import="receiptAccountant.UserReceipt"%>
@@ -19,13 +20,12 @@
         <title>Receipt Page</title>
     </head>
     <body>
-        <a href="MainController?action=ShowRequest&showRequest=&howRequest=">Request</a>
         <a href="MainController?action=SeacrhReceipt&search=&searchSeceond=">Receipt</a>
         <a href="MainController?action=SeacrhOrder&OrderI=&CustomerNam=&Addres=&PhoneNumbe=">Issue</a>
         <a href="report.jsp">Report</a>
-        <a href="MainController?action=SearchInventoryF&searchInventoryF=">Inventory Report</a>
+        <a href="MainController?action=SearchInventoryAlpha&productID=&name=">Inventory Report</a>
 
-        <a href="MainController?action=AddReceiptVirtual">Create</a>
+        <a href="createReceiptDetail.jsp">Create</a>
 
         <form action="MainController">
             <input type="text" name="search" placeholder="By Receipt ID"/>
@@ -44,6 +44,22 @@
                 <input type="submit" name="action" value="SearchReceiptDate"/>
             </form>
         </div>
+        
+        
+        <div>
+            <i class="fa-solid fa-sort" onclick="ShowSort()"></i>
+            
+        </div>
+        <div id="sortLabel" class="show_date_receipt">
+            <form action="MainController">
+                <label>Sort by: </label>
+                <select name="search">
+                    <option value="1">Date old</option>
+                    <option value="2">Date new</option>
+                </select>
+                <input type="submit" name="action" value="SortReceipt">
+            </form>
+        </div>
 
 
         <form action="#" method="post">
@@ -56,8 +72,8 @@
                 if (product.size() > 0) {
         %>
         <div class="number" id="sa<%= product.size()%>">
-                <%= product.size() %>
-            </div>
+            <%= product.size()%>
+        </div>
         <div class="notification_head" id="showValue">
             <header class="head_notify">
                 <h3>
@@ -86,18 +102,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
         <%
-            List<UserReceipt> receipt = (List<UserReceipt>) request.getAttribute("LIST_RECEIPT");
+            List<UserReceipt> receipt = (List<UserReceipt>) session.getAttribute("LIST_RECEIPT");
             if (receipt != null) {
                 if (receipt.size() > 0) {
         %>
@@ -109,6 +115,8 @@
                     <th>Status</th>
                     <th>Total Quantity</th>
                     <th>Note</th>
+                    <th>accountantID</th>
+                    <th>stockKeeperID</th>
                 </tr>
             </thead>
             <tbody>
@@ -118,7 +126,7 @@
             <form action="MainController">
                 <tr>
                     <td>
-                        <input type="text" name="productID" value="<%= rc.getReceiptID()%>" readonly=""/>
+                        <input type="text" name="receiptID" value="<%= rc.getReceiptID()%>" readonly=""/>
                     </td>
                     <td>
                         <input type="text" name="productID" value="<%= rc.getInputDate()%>" readonly=""/>
@@ -132,6 +140,15 @@
                     <td>
                         <input type="text" name="productID" value="<%= rc.getNote()%>" readonly=""/>
                     </td>
+                    <td>
+                        <input type="text" name="productID" value="<%= rc.getAccountantID()%>" readonly=""/>
+                    </td>
+                    <td>
+                        <input type="text" name="productID" value="<%= rc.getStockKeeperID()%>" readonly=""/>
+                    </td>
+                    <td>
+                        <input type="submit" name="action" value="ShowDetailReceipt" readonly=""/>
+                    </td>
                 </tr>
             </form>
             <%
@@ -143,6 +160,64 @@
             }
         }
     %>
+
+
+    <%
+        List<UserReceiptDetailS> receiptDetail = (List<UserReceiptDetailS>) request.getAttribute("LIST_DETAIL_RECEIPT");
+        if (receiptDetail != null) {
+            if (receiptDetail.size() > 0) {
+    %>
+    <div id="orderDetail">
+        <table  border="1" >
+            <thead>
+                <tr>
+                    <th>receiptDetailID</th>
+                    <th>quantityInBill</th>
+                    <th>quantityInShipping</th>
+                    <th>productID</th>
+                    <th>receiptID</th>
+                    <th>solution</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    for (UserReceiptDetailS tm : receiptDetail) {
+                %>
+                <tr>
+                    <td>
+                        <input type="text" name="orderDetailID" value="<%= tm.getReceiptDetailID()%>" readonly=""/>
+                    </td>
+                    <td>
+                        <input type="text" name="quantity" value="<%= tm.getQuantityInBill()%>" readonly=""/>
+                    </td>
+                    <td>
+                        <input type="text" name="orderID" value="<%= tm.getQuantityInShipping()%>" readonly=""/>
+                    </td>
+                    <td>
+                        <input type="text" name="productID" value="<%= tm.getProductID()%>" readonly=""/>
+                    </td>
+                    <td>
+                        <input type="text" name="productID" value="<%= tm.getReceiptID()%>" readonly=""/>
+                    </td>
+                    <td>
+                        <input type="text" name="productID" value="<%= tm.getSolution()%>" readonly=""/>
+                    </td>
+
+                </tr>
+                <%
+                    }
+                %>
+            <input type="button" value="Close" onclick="ShowDetailOrder()">
+            </tbody>          
+        </table>
+    </div>
+    <%
+            }
+        }
+    %>
+
+
+
 
     <%
         String error = (String) request.getAttribute("ERROR");

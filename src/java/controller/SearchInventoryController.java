@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import inventoryAccountant.UserInventory;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,12 +30,16 @@ public class SearchInventoryController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try{
+            HttpSession session = request.getSession();
+            if(session!=null){
+                session.removeAttribute("LIST_INVENTORY");
+            }
             String searchInventory = request.getParameter("searchInventory");
             String searchInventoryM = request.getParameter("searchInventoryM");
             DAOInventory dao = new DAOInventory();
             List<UserInventory> listInventory = dao.getListSearchInventory(searchInventory, searchInventoryM);
             if(listInventory.size() >0){
-                request.setAttribute("LIST_INVENTORY", listInventory);
+                session.setAttribute("LIST_INVENTORY", listInventory);
                 url = SUCCESS;
             }else{
                 request.setAttribute("ERROR", "No result is found.");

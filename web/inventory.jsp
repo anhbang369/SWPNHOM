@@ -17,11 +17,10 @@
         <title>Inventory Page</title>
     </head>
     <body>
-        <a href="MainController?action=ShowRequest&showRequest=&howRequest=">Request</a>
         <a href="MainController?action=SeacrhReceipt&search=">Receipt</a>
         <a href="MainController?action=SeacrhOrder&OrderI=&CustomerNam=&Addres=&PhoneNumbe=">Issue</a>
         <a href="report.jsp">Report</a>
-        <a href="MainController?action=SearchInventoryF&searchInventoryF=">Inventory Report</a>
+        <a href="MainController?action=SearchInventoryAlpha&productID=&name=">Inventory Report</a>
         <a href="createInventory.jsp">Create Inventory</a>
 
         <form action="MainController">
@@ -43,9 +42,25 @@
                 <input type="submit" name="action" value="SearchInventory"/>
             </form>
         </div>
+        
+        <div>
+            <i class="fa-solid fa-sort" onclick="ShowSort()"></i>
+            
+        </div>
+        
+        <div id="sortLabel" class="show_date_receipt">
+            <form action="MainController">
+                <label>Sort by: </label>
+                <select name="search">
+                    <option value="1">Date old</option>
+                    <option value="2">Date new</option>
+                </select>
+                <input type="submit" name="action" value="SortInventory">
+            </form>
+        </div>
 
         <%
-            List<UserInventory> inventory = (List<UserInventory>) request.getAttribute("LIST_INVENTORY");
+            List<UserInventory> inventory = (List<UserInventory>) session.getAttribute("LIST_INVENTORY");
             if (inventory != null) {
                 if (inventory.size() > 0) {
         %>
@@ -74,22 +89,34 @@
                         <input type="text" name="name" value="<%= rc.getName()%>" readonly=""/>
                     </td>
                     <td>
-                        <input type="text" name="productID" value="<%= rc.getCheckingDate()%>" readonly=""/>
+                        <input type="text" name="checkingDate" value="<%= rc.getCheckingDate()%>" readonly=""/>
                     </td>
                     <td>
-                        <input type="text" name="productID" value="<%= rc.getQuantityInChecking()%>" readonly=""/>
+                        <input type="text" name="quantityInChecking" value="<%= rc.getQuantityInChecking()%>" readonly=""/>
                     </td>
                     <td>
-                        <input type="text" name="productID" value="<%= rc.getQuantity()%>" readonly=""/>
+                        <input type="text" name="quantity" value="<%= rc.getQuantity()%>" readonly=""/>
                     </td>
                     <td>
-                        <input type="text" name="productID" value="<%= rc.getQuality()%>" readonly=""/>
+                        <input type="text" name="quality" value="<%= rc.getQuality()%>" readonly=""/>
                     </td>
                     <%
-                    float a = (float)(rc.getQuantity()-rc.getQuantityInChecking())/rc.getQuantity();
+                        float a = (float) (rc.getQuantity() - rc.getQuantityInChecking()) / rc.getQuantity();
+                        float b = (a * 100);                      
+                        String source =String.valueOf(b);  
+                        char firstChar = source.charAt(0);
+                        String first =String.valueOf(firstChar);  
+                        char secondChar = source.charAt(1);
+                        String second =String.valueOf(secondChar);  
+                        char thirdChar = source.charAt(2);
+                        String third =String.valueOf(thirdChar);  
+                        char lastChar = source.charAt(3);
+                        String last =String.valueOf(lastChar);  
+                        String isMax = first+second+third+last;
+                        
                     %>
                     <td>
-                        <input type="text" name="productID" value="<%= a*100 %>%" readonly=""/>
+                        <input type="text" name="productID" value="<%= isMax %>%" readonly=""/>
                     </td>
                     <td>
                         <input type="text" name="productID" value="<%= rc.getNote()%>" readonly=""/>

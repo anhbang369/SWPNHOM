@@ -6,14 +6,12 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import receiptAccountant.DAOReceipt;
-import receiptAccountant.UserReceipt;
 import receiptAccountant.UserReceiptUp;
 
 /**
@@ -24,15 +22,16 @@ import receiptAccountant.UserReceiptUp;
 public class UpdateReceiptController extends HttpServlet {
 
     private static final String ERROR="receipt.jsp";
-    private static final String SUCCESS="MainController?action=SeacrhReceipt&search=&searchSeceond=";
+    private static final String SUCCESS="MainController?action=SeacrhReceiptDetail&searchDetail=";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            int receiptID = Integer.parseInt(request.getParameter("receiptID"));
-            String note = request.getParameter("conclusion");
             DAOReceipt dao = new DAOReceipt();
+            int receiptID = dao.getReceiptID();
+            String note = request.getParameter("conclusion");
+            
             UserReceiptUp user = new UserReceiptUp(receiptID, note);
             boolean check =dao.updateReceipt(user);
             if(check){

@@ -8,13 +8,13 @@ package controller;
 import issueAccountant.DAOIssue;
 import issueAccountant.UserOrder;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,12 +30,16 @@ public class SearchOrderDateController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try{
+            HttpSession session = request.getSession();
+            if(session!=null){
+                session.removeAttribute("LIST_RECEIPT");
+            }
             String search = request.getParameter("search");
             String search1 = request.getParameter("searchM");
             DAOIssue dao = new DAOIssue();
             List<UserOrder> listInventory = dao.getListSearchOrderDate(search,search1);
             if(listInventory.size() >0){
-                request.setAttribute("LIST_ORDER", listInventory);
+                session.setAttribute("LIST_ORDER", listInventory);
                 url = SUCCESS;
             }else{
                 request.setAttribute("ERROR", "No result is found.");

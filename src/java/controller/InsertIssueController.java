@@ -7,7 +7,13 @@ package controller;
 
 import issueAccountant.DAOIssue;
 import issueAccountant.UserIssue;
+import issueAccountant.UserOrderDetail;
+import issueAccountant.UserProductI;
+import issueAccountant.UserProductU;
+import issueAccountant.UserProductUF;
+import issueAccountant.UserProductUS;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,13 +30,16 @@ import user.UserDTO;
 @WebServlet(name = "InsertIssueController", urlPatterns = {"/InsertIssueController"})
 public class InsertIssueController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "MainController?action=SearchIssue&searchIssue=&searchCustomer=";
+    private static final String ERROR = "MainController?action=SortOrder";
+    private static final String SUCCESS = "MainController?action=ShowIssueFull";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        try{
+        try {
+            boolean flag = false;
+            boolean check = false;
             Timer t = new Timer();
             HttpSession session = request.getSession();
             UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
@@ -41,14 +50,53 @@ public class InsertIssueController extends HttpServlet {
             String DateP = t.timeNow();
             UserIssue issue = new UserIssue(note, accountantID, sellerID, orderID, DateP);
             DAOIssue dao = new DAOIssue();
-                    boolean create = dao.createIssue(issue);
-                    if (create == true) {
-                        url = SUCCESS;
+            List<UserOrderDetail> listOrderDetail = dao.getListOrderDetail(orderID);
+            if (listOrderDetail.size() > 0) {
+                for (UserOrderDetail userOrderDetail : listOrderDetail) {
+                    String productID = userOrderDetail.getProductID();
+                    int quantityOrderDetail = userOrderDetail.getQuantity();
 
+                    List<UserProductI> listProduct = dao.getListProduct(productID);
+                    if (listProduct.size() > 0) {
+                        for (UserProductI userProduct : listProduct) {
+                            if ((userProduct.getQuantity() - quantityOrderDetail) < 0) {
+                                String status2 = "Fail";
+                                UserProductUF proS = new UserProductUF(orderID, status2);
+                                boolean update = dao.updateQuantityProductF(proS);
+                                if (update == true) {
+                                    check = true;
+                                    request.setAttribute("ERROR_ADD_ISSUE", "Amount product in warehouse not enough!");
+                                }
+                                break;
+
+                            }
+                        }
                     }
-        }catch(Exception e){
+                    if (listOrderDetail.size() > 0) {
+                        if (check == false) {
+                            for (UserProductI userProductI : listProduct) {
+                                int quantity = userProductI.getQuantity() - quantityOrderDetail;
+                                String status = "Success";
+                                UserProductU pro = new UserProductU(productID, quantity);
+                                UserProductUS proU = new UserProductUS(orderID, status);
+                                boolean create = dao.createIssue(issue);
+                                boolean update = dao.updateQuantityProductS(pro);
+                                boolean updateS = dao.updateQuantityProductSs(proU);
+                                if (create == true && update == true && updateS == true) {
+                                    flag = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (flag == true) {
+                url = SUCCESS;
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

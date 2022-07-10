@@ -14,10 +14,9 @@
     <body>
         <form action="MainController" method="POST">
         <input type="submit" name="action" value="Logout">
-        <a href="MainController?action=ShowRequest&showRequest=&howRequest=">Request</a>
         <a href="MainController?action=SeacrhReceipt&search=">Receipt</a>
         <a href="MainController?action=SeacrhOrder&OrderI=&CustomerNam=&Addres=&PhoneNumbe=">Issue</a>
         <a href="report.jsp">Report</a>
-        <a href="MainController?action=SearchInventoryF&searchInventoryF=">Inventory Report</a>
+        <a href="MainController?action=SearchInventoryAlpha&productID=&name=">Inventory Report</a>
     </body>
 </html>

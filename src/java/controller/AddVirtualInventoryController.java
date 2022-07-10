@@ -37,7 +37,7 @@ public class AddVirtualInventoryController extends HttpServlet {
             String productID = request.getParameter("productID");
             int quality = Integer.parseInt(request.getParameter("quality"));
             int quantityInChecking = Integer.parseInt(request.getParameter("quantityInChecking"));
-            int quantity = dao.getQuantityInBin(productID);
+            int quantity = dao.getQuantityInProduct(productID);
             String note = request.getParameter("note");
             ListInventory ca = (ListInventory) session.getAttribute("LIST_INVEN_VIRTUAL");
             if (ca != null) {

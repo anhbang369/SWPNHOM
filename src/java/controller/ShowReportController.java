@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,9 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import reportAccountant.DAOReport;
 import reportAccountant.UserProductName;
-import reportAccountant.UserProductReport;
 import reportAccountant.UserReport;
-import virtual.ListReport;
 
 /**
  *
@@ -35,13 +34,8 @@ public class ShowReportController extends HttpServlet {
         String url = ERROR;
         try {
             HttpSession session = request.getSession();
-            ListReport cartt = (ListReport) session.getAttribute("LIST_REPORT");
             if (session != null) {
-                if (cartt != null) {
-                    session.removeAttribute("LIST_REPORT");
-                    url = SUCCESS;
-
-                }
+                session.removeAttribute("LIST_REPORT");
             }
             String product = request.getParameter("productID");
             String name = request.getParameter("name");
@@ -54,6 +48,7 @@ public class ShowReportController extends HttpServlet {
             }
 
             List<UserProductName> listUser = (List<UserProductName>) request.getAttribute("LIST_PRODUCT_NAME");
+            List<UserReport> tp = new ArrayList<>();
             if (listUser != null) {
                 if (listUser.size() > 0) {
                     for (UserProductName up : listUser) {
@@ -64,20 +59,16 @@ public class ShowReportController extends HttpServlet {
                         int quantityEnd = quantityBegin + (dao.quantityEndI(ProductID, search, search1) - dao.quantityEndO(ProductID, search, search1));
                         int importP = dao.importt(ProductID, search, search1);
                         int exportP = dao.exportt(ProductID, search, search1);
-
                         UserReport tm = new UserReport(ProductID, Name, Brand, quantityBegin, quantityEnd, importP, exportP);
-                        ListReport cart = (ListReport) session.getAttribute("LIST_REPORT");
-                        if (cart == null) {
-                            cart = new ListReport();
-                        }
-                        cart.add(tm);
-                        session.setAttribute("LIST_REPORT", cart);
-                        url = SUCCESS;
+                        tp.add(tm);
+                        session.setAttribute("LIST_REPORT", tp);
+
                     }
+                    url = SUCCESS;
                 }
-            }else{
-                    request.setAttribute("ERROR_REPORT","Result not found!");
-                }
+            } else {
+                request.setAttribute("ERROR_REPORT", "Result not found!");
+            }
 
         } catch (Exception e) {
             System.out.println("Error at ShowController: " + e.toString());

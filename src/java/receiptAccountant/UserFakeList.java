@@ -13,7 +13,7 @@ public class UserFakeList {
     public String productID;
     public String model;
     public String brand;
-    public String type;
+    public String name;
     public int quantityInBill;
     public int quantityInShipping;
     public int receiptID;
@@ -23,15 +23,17 @@ public class UserFakeList {
     public String note;
     public String accountantID;
     public String stockKeeperID;
+    public String solution;
+    public int receiptDetailID;
 
     public UserFakeList() {
     }
 
-    public UserFakeList(String productID, String model, String brand, String type, int quantityInBill, int quantityInShipping, int receiptID, String inputDate, String status, int totalQuantity, String note, String accountantID, String stockKeeperID) {
+    public UserFakeList(String productID, String model, String brand, String name, int quantityInBill, int quantityInShipping, int receiptID, String inputDate, String status, int totalQuantity, String note, String accountantID, String stockKeeperID, String solution, int receiptDetailID) {
         this.productID = productID;
         this.model = model;
         this.brand = brand;
-        this.type = type;
+        this.name = name;
         this.quantityInBill = quantityInBill;
         this.quantityInShipping = quantityInShipping;
         this.receiptID = receiptID;
@@ -41,7 +43,21 @@ public class UserFakeList {
         this.note = note;
         this.accountantID = accountantID;
         this.stockKeeperID = stockKeeperID;
+        this.solution = solution;
+        this.receiptDetailID = receiptDetailID;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    
+
+    
 
     
 
@@ -69,13 +85,7 @@ public class UserFakeList {
         this.brand = brand;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+   
 
     public int getQuantityInBill() {
         return quantityInBill;
@@ -151,4 +161,22 @@ public class UserFakeList {
     public void setStockKeeperID(String stockKeeperID) {
         this.stockKeeperID = stockKeeperID;
     }
+
+    public String getSolution() {
+        return solution;
+    }
+
+    public void setSolution(String solution) {
+        this.solution = solution;
+    }
+
+    public int getReceiptDetailID() {
+        return receiptDetailID;
+    }
+
+    public void setReceiptDetailID(int receiptDetailID) {
+        this.receiptDetailID = receiptDetailID;
+    }
+    
+    
 }

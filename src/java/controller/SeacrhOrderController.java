@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,6 +30,10 @@ public class SeacrhOrderController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try{
+            HttpSession session = request.getSession();
+            if(session!=null){
+                session.removeAttribute("LIST_ORDER");
+            }
             String search = request.getParameter("OrderI");
             String search1 = request.getParameter("CustomerNam");
             String search2 = request.getParameter("Addres");
@@ -36,7 +41,7 @@ public class SeacrhOrderController extends HttpServlet {
             DAOIssue dao = new DAOIssue();
             List<UserOrder> listInventory = dao.getListSearchOrder(search,search1,search2,search3);
             if(listInventory.size() >0){
-                request.setAttribute("LIST_ORDER", listInventory);
+                session.setAttribute("LIST_ORDER", listInventory);
                 url = SUCCESS;
             }else{
                 request.setAttribute("ERROR", "No result is found.");

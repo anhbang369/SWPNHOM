@@ -31,7 +31,7 @@ public class SeacrhReceiptDetailController extends HttpServlet {
         try{
             DAOReceipt dao = new DAOReceipt();
             int a = dao.getReceiptID();
-            List<UserFakeList> listUser = dao.getListShowDetail(a);
+            List<UserFakeList> listUser = dao.getListReceiptFull(a);
             if(listUser.size() >0){
                 request.setAttribute("LIST_ALL_RECEIPT", listUser);
                 url = SUCCESS;

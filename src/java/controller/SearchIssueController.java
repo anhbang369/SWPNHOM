@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,12 +30,16 @@ public class SearchIssueController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try{
+            HttpSession session = request.getSession();
+            if(session!=null){
+                session.removeAttribute("LIST_ISSUE");
+            }
             String search = request.getParameter("searchIssue");
             String seacrh1 = request.getParameter("searchCustomer");
             DAOIssue dao = new DAOIssue();
             List<UserIssueS> listIssue = dao.getListSearchIssue(search, seacrh1);
             if(listIssue.size() >0){
-                request.setAttribute("LIST_ISSUE", listIssue);
+                session.setAttribute("LIST_ISSUE", listIssue);
                 url = SUCCESS;
             }else{
                 request.setAttribute("ERROR", "No result is found.");

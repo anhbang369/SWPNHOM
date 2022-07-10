@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import receiptAccountant.DAOReceipt;
 import receiptAccountant.UserReceipt;
 
@@ -29,11 +30,15 @@ public class SearchReceptController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try{
-            String search = request.getParameter("search");
+            HttpSession session = request.getSession();
+            if(session!=null){
+                session.removeAttribute("LIST_RECEIPT");
+            }
+            String search = request.getParameter("search");            
             DAOReceipt dao = new DAOReceipt();
             List<UserReceipt> listUser = dao.getListUser(search);
             if(listUser.size() >0){
-                request.setAttribute("LIST_RECEIPT", listUser);
+                session.setAttribute("LIST_RECEIPT", listUser);
                 url = SUCCESS;
             }else{
                 request.setAttribute("ERROR", "No result is found.");

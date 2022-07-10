@@ -8,13 +8,13 @@ package controller;
 import inventoryAccountant.DAOInventory;
 import inventoryAccountant.UserInventory;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,12 +30,16 @@ public class SearchInventoryAlphaController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try{
+            HttpSession session = request.getSession();
+            if(session!=null){
+                session.removeAttribute("LIST_INVENTORY");
+            }
             String search = request.getParameter("productID");
             String search1 = request.getParameter("name");
             DAOInventory dao = new DAOInventory();
             List<UserInventory> listInventory = dao.getListSearchInventoryAlpha(search,search1);
             if(listInventory.size() >0){
-                request.setAttribute("LIST_INVENTORY", listInventory);
+                session.setAttribute("LIST_INVENTORY", listInventory);
                 url = SUCCESS;
             }else{
                 request.setAttribute("ERROR", "Result not found!");
