@@ -62,13 +62,13 @@ public class AddVirtualInventoryController extends HttpServlet {
                         session.setAttribute("LIST_INVEN_VIRTUAL", cart);
                         url = SUCCESS;
                     } else {
-                        request.setAttribute("ERROR_CHECK", "quantityInChecking>=0. Please enter again!!!");
+                        request.setAttribute("ERROR_CHECK", "The number of checks must be greater than 0. Please re-enter.");
                     }
                 } else {
-                    request.setAttribute("ERROR_CHECK", "quality>0. Please enter again!!!");
+                    request.setAttribute("ERROR_CHECK", "Quality must be greater than 0. Please re-enter.");
                 }
             } else {
-                request.setAttribute("ERROR_CHECK", "ProductID exist.Please enter again!!!");
+                request.setAttribute("ERROR_CHECK", "Product ID already exists. Please re-enter.");
             }
         } catch (Exception e) {
             e.printStackTrace();

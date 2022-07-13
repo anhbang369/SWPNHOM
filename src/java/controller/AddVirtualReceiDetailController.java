@@ -62,14 +62,14 @@ public class AddVirtualReceiDetailController extends HttpServlet {
                         session.setAttribute("VIRTUAL_RECEI", cart);
                         url = SUCCESS;
                     } else {
-                        request.setAttribute("ERROR_CHECK", "ProductID exist.Please enter again!!!");
+                        request.setAttribute("ERROR_CHECK", "Product ID already exists. Please re-enter.");
                     }
 
                 } else {
-                    request.setAttribute("ERROR_CHECK", "quantityInShipping>0. Please enter again!!!");
+                    request.setAttribute("ERROR_CHECK", "Quantity in Shipping must be greater than 0. Please re-enter.");
                 }
             } else {
-                request.setAttribute("ERROR_CHECK", "quantityInBill>0. Please enter again!!!");
+                request.setAttribute("ERROR_CHECK", "Quantity in bill must be greater than 0. Please re-enter.");
             }
         } catch (Exception e) {
             e.printStackTrace();

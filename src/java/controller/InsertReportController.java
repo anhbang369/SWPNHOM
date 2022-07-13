@@ -46,11 +46,11 @@ public class InsertReportController extends HttpServlet {
                         url = SUCCESS;
                     }
                 }else{
-                request.setAttribute("ERROR_ADD", "You have to add Produt into Inventory");
+                request.setAttribute("ERROR_ADD", "You must add the product inside the inventory.");
             }
 
             }else{
-                request.setAttribute("ERROR_ADD", "You have to add Produt into Inventory");
+                request.setAttribute("ERROR_ADD", "You must add the product inside the inventory.y");
             }
 
         } catch (Exception e) {

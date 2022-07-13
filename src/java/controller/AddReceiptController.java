@@ -61,14 +61,14 @@ public class AddReceiptController extends HttpServlet {
                             url = SUCCESS;
                         }
                     } else {
-                        request.setAttribute("VIRTUAL_RECEI_ERROR", "stockKeeperID not exist. Please enter again!!");
+                        request.setAttribute("VIRTUAL_RECEI_ERROR", "StockKeeperID does not exist. Please re-enter.");
                     }
 
                 } else {
-                    request.setAttribute("ERROR_FINISH", "You have to add Product into Receipt");
+                    request.setAttribute("ERROR_FINISH", "You must add the product to the invoice.");
                 }
             } else {
-                request.setAttribute("ERROR_FINISH", "You have to add Product into Receipt");
+                request.setAttribute("ERROR_FINISH", "You must add the product to the invoice.");
             }
 
         } catch (Exception e) {

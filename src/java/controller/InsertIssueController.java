@@ -65,7 +65,7 @@ public class InsertIssueController extends HttpServlet {
                                 boolean update = dao.updateQuantityProductF(proS);
                                 if (update == true) {
                                     check = true;
-                                    request.setAttribute("ERROR_ADD_ISSUE", "Amount product in warehouse not enough!");
+                                    request.setAttribute("ERROR_ADD_ISSUE", "The number of products in stock is not enough.");
                                 }
                                 break;
 

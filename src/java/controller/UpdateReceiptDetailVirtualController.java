@@ -50,10 +50,10 @@ public class UpdateReceiptDetailVirtualController extends HttpServlet {
                                 url = SUCCESS;
                             }
                         } else {
-                            request.setAttribute("ERROR", "quantityInShipping after update have large than 0. Please enter again!!");
+                            request.setAttribute("ERROR", "Quantity in shipping after updating must be greater than zero. Please re-enter.");
                         }
                     } else {
-                        request.setAttribute("ERROR", "quantityInBill after update have large than 0. Please enter again!!");
+                        request.setAttribute("ERROR", "Quantity in bill after updating must be greater than zero. Please re-enter.");
                     }
 
                 }

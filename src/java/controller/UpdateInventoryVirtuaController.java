@@ -50,10 +50,10 @@ public class UpdateInventoryVirtuaController extends HttpServlet {
                                 url = SUCCESS;
                             }
                         } else {
-                            request.setAttribute("ERROR", "quantityInChecking after update have to large than 0. Please enter again!!");
+                            request.setAttribute("ERROR", "Quantity when checking after updating must be greater than 0. Please re-enter.");
                         }
                     } else {
-                        request.setAttribute("ERROR", "Quanlity after update have to large than 0. Please enter again!!");
+                        request.setAttribute("ERROR", "Quality after update must be greater than 0. Please re-enter.");
                     }
                 }
             }
