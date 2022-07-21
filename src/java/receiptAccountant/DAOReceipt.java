@@ -18,7 +18,7 @@ import utils.DBUtils;
  * @author 84348
  */
 public class DAOReceipt {
-    private static final String CHECK_EXIST_ACCOUNT = "SELECT name,role,status,phoneNumber FROM Account WHERE accountID like ?";
+    //private static final String CHECK_EXIST_ACCOUNT = "SELECT name,role,status,phoneNumber FROM Account WHERE accountID like ?";
     private static final String CHECK_EXIST_ORDERID = "SELECT customerName,address,phoneNumber,status,note,deliveryDate,sellerID FROM Orders WHERE orderID like ?";
     private static final String ADD_RECEIPT_DETAIL = "INSERT INTO ReceiptDetail(quantityInBill, quantityInShipping, productID, receiptID,solution) VALUES(?,?,?,?,?)";
     private static final String GET_RECEIPTID = "SELECT top 1 * FROM Receipt order by receiptID desc";
@@ -33,7 +33,7 @@ public class DAOReceipt {
     private static final String SEARCH_DETAIL_RECEIPT_FULL = "SELECT pt.productID, pt.model,pt.brand,pt.name,rd.quantityInBill,rd.quantityInShipping,r.inputDate,r.status,r.totalQuantity,r.note,r.stockKeeperID,r.accountantID,rd.receiptDetailID,rd.solution,r.receiptID FROM Receipt as r,ReceiptDetail as rd,Product as pt WHERE r.receiptID=rd.receiptID AND rd.productID=pt.productID AND r.receiptID = ?";
     private static final String SUM_BILL = "SELECT SUM(quantityInBill) AS quantity FROM ReceiptDetail WHERE receiptID=?";
     private static final String SUM_SHIP = "SELECT SUM(quantityInShipping) AS quantity FROM ReceiptDetail WHERE receiptID=?";
-    public boolean checkExistAccount(String Account) throws SQLException {
+    /*public boolean checkExistAccount(String Account) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -62,7 +62,7 @@ public class DAOReceipt {
             }
         }
         return check;
-    }
+    }*/
     
     public boolean checkExistOrderID(int orderID) throws SQLException {
         boolean check = false;

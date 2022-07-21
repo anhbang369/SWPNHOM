@@ -12,8 +12,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import user.UserDAO;
 import user.UserNotify;
+import user.UserProduct;
+import virtual.ListNotify;
 
 /**
  *
@@ -29,13 +32,37 @@ public class NotifyExportController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            UserDAO dao = new UserDAO();
-            List<UserNotify> listUser = dao.getListNotify();
-            if (listUser.size() > 0) {
-                request.setAttribute("LIST_NOTIFY", listUser);
-                url = SUCCESS;
+            HttpSession session = request.getSession();
+            if (session != null) {
+                session.getAttribute("LIST_PRODUCT_NOTIFY");
+                session.getAttribute("LIST_NOTIFY");
             }
 
+            UserDAO dao = new UserDAO();
+            List<UserProduct> listProduct = dao.getListProduct();
+            if (listProduct.size() > 0) {
+                session.setAttribute("LIST_PRODUCT_NOTIFY", listProduct);
+            }
+            List<UserProduct> product = (List<UserProduct>) session.getAttribute("LIST_PRODUCT_NOTIFY");
+            if (product != null) {
+                if (product.size() > 0) {
+                    for (UserProduct prodct : product) {
+                        String p = prodct.getProductID();
+                        String name = dao.getListNotify(p, p, p);
+                        if (!name.equalsIgnoreCase("null")) {
+                            UserNotify noti = new UserNotify(name);
+                            ListNotify cart = (ListNotify) session.getAttribute("LIST_NOTIFY");
+                            if (cart == null) {
+                                cart = new ListNotify();
+                            }
+                            cart.add(noti);
+                            session.setAttribute("LIST_NOTIFY", cart);
+                        }
+
+                    }
+                    url = SUCCESS;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

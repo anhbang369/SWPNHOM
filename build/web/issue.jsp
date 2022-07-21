@@ -24,10 +24,11 @@
         <a href="report.jsp">Report</a>
         <a href="MainController?action=SearchInventoryAlpha&productID=&name=">Inventory Report</a>
 
-        <form action="MainController">
+        <form action="MainController" name="OSearch" onsubmit="OSearchForm();">
             <input type="text" name="searchIssue" placeholder="Enter OrderID">
             <input type="text" name="searchCustomer" placeholder="Enter Customer Name">
-            <input type="submit" name="action" value="SearchIssue">
+            <input type="hidden" name="action" value="SearchIssue">
+            <input type="submit" value="Search"/>
         </form>
         
         <form action="">
@@ -36,10 +37,11 @@
 
         </form>
         <div class="show_date_receipt" id="showDateReceipt">
-            <form action="MainController">
+            <form action="MainController" name="SIdSearch" onsubmit="SIdSearchForm();">
                 Search<input type="date" name="search"/>
                 To<input type="date" name="searchR" />
-                <input type="submit" name="action" value="SearchIssueDate"/>
+                <input type="hidden" name="action" value="SearchIssueDate"/>
+                <input type="submit" value="Search"/>
             </form>
         </div>
         
@@ -67,42 +69,41 @@
         <table border="1">
             <thead>
                 <tr>
-                    <th>issueID</th>
-                    <th>Note</th>
-                    <th>accountantID</th>
-                    <th>sellerID</th>
+                    <th>issueID</th>                   
                     <th>orderID</th>
                     <th>DateP</th>
+                    <th>Note</th>
                 </tr>
             </thead>
             <tbody>
                 <%
                     for (UserIssueS tm : issue) {
                 %>
-            <form action="MainController">
+            <form action="MainController" name="SIDSearch" onsubmit="SIDSearchForm();">
                 <tr>
                     <td>
-                        <input type="text" name="issueID" value="<%= tm.getIssueID()%>" readonly=""/>
+                        <%= tm.getIssueID()%>
                     </td>
                     <td>
-                        <input type="text" name="note" value="<%= tm.getNote()%>" readonly=""/>
+                        <%= tm.getOrderID()%>
                     </td>
                     <td>
-                        <input type="text" name="accountantID" value="<%= tm.getAccountantID()%>" readonly=""/>
+                        <%= tm.getDateP()%>
                     </td>
                     <td>
-                        <input type="text" name="sellerID" value="<%= tm.getSellerID()%>" readonly=""/>
+                        <%= tm.getNote()%>
                     </td>
                     <td>
-                        <input type="text" name="orderID" value="<%= tm.getOrderID()%>" readonly=""/>
+                        <input type="hidden" name="action" value="ShowDetailOrder"/>
+                        <input type="submit" value="Search"/>
                     </td>
-                    <td>
-                        <input type="text" name="DateP" value="<%= tm.getDateP()%>" readonly=""/>
-                    </td>
-                    <td>
-                        <input type="submit" name="action" value="ShowDetailOrder"/>
-                    </td>
-
+                <input type="hidden" name="issueID" value="<%= tm.getIssueID()%>" readonly=""/>
+<input type="hidden" name="note" value="<%= tm.getNote()%>" readonly=""/>
+<input type="hidden" name="accountantID" value="<%= tm.getAccountantID()%>" readonly=""/>
+<input type="hidden" name="sellerID" value="<%= tm.getSellerID()%>" readonly=""/>
+<input type="hidden" name="orderID" value="<%= tm.getOrderID()%>" readonly=""/>
+<input type="hidden" name="DateP" value="<%= tm.getDateP()%>" readonly=""/>
+<input type="hidden" name="action" value="ShowDetailOrder"/>
                 </tr>
             </form>
             <%
@@ -129,7 +130,6 @@
                 <tr>
                     <th>orderDetailID</th>
                     <th>quantity</th>
-                    <th>orderID</th>
                     <th>productID</th>
                 </tr>
             </thead>
@@ -139,18 +139,19 @@
                 %>
                 <tr>
                     <td>
-                        <input type="text" name="orderDetailID" value="<%= tm.getOrderDetailID()%>" readonly=""/>
+                        <%= tm.getOrderDetailID()%>
                     </td>
                     <td>
-                        <input type="text" name="quantity" value="<%= tm.getQuantity()%>" readonly=""/>
+                        <%= tm.getQuantity()%>
                     </td>
                     <td>
-                        <input type="text" name="orderID" value="<%= tm.getOrderID()%>" readonly=""/>
+                        <%= tm.getProductID()%>
                     </td>
-                    <td>
-                        <input type="text" name="productID" value="<%= tm.getProductID()%>" readonly=""/>
-                    </td>
-                    
+
+            <input type="hidden" name="orderDetailID" value="<%= tm.getOrderDetailID()%>" readonly=""/>
+                    <input type="hidden" name="quantity" value="<%= tm.getQuantity()%>" readonly=""/>
+                    <input type="hidden" name="orderID" value="<%= tm.getOrderID()%>" readonly=""/>
+                    <input type="hidden" name="productID" value="<%= tm.getProductID()%>" readonly=""/>
                 </tr>
                 <%
                     }

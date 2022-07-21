@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ShowDetailOrderController", urlPatterns = {"/ShowDetailOrderController"})
 public class ShowDetailOrderController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
+    private static final String ERROR = "MainController?action=SearchIssue&searchIssue=&searchCustomer=";
     private static final String SUCCESS = "MainController?action=SortIssue";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

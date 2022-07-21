@@ -35,7 +35,7 @@ import user.UserDTO;
 @WebServlet(name = "ExportIssueController", urlPatterns = {"/ExportIssueController"})
 public class ExportIssueController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
+    private static final String ERROR = "MainController?action=ShowIssueFull";
     private static final String SUCCESS = "MainController?action=SearchIssue&searchIssue=&searchCustomer=";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

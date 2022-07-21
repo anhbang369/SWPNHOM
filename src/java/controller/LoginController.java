@@ -24,7 +24,7 @@ public class LoginController extends HttpServlet {
 
     private static final String ERROR = "login.jsp";
     private static final String MM = "MM";
-    private static final String SK = "SK"; 
+    private static final String AC = "AC"; 
     private static final String ST = "ST"; 
     private static final String BM = "DM";
     private static final String ADMIN_PAGE = "Account.jsp";
@@ -40,7 +40,7 @@ public class LoginController extends HttpServlet {
             if (loginUser != null) {
                     HttpSession session = request.getSession();
                     String roleID = loginUser.getRole();
-                    if (SK.equals(roleID)) {
+                    if (AC.equals(roleID)) {
                         session.setAttribute("LOGIN_USER", loginUser);                        
                         url = ADMIN_PAGE;
                     }else {

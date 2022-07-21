@@ -21,7 +21,7 @@ import virtual.ListInventory;
 @WebServlet(name = "RemoveInventoryVirtualController", urlPatterns = {"/RemoveInventoryVirtualController"})
 public class RemoveInventoryVirtualController extends HttpServlet {
 
-    private static final String ERROR="error.jsp";
+    private static final String ERROR="createInventory.jsp";
     private static final String SUCCESS="createInventory.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

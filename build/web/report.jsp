@@ -22,12 +22,13 @@
         <a href="report.jsp">Report</a>
         <a href="MainController?action=SearchInventoryAlpha&productID=&name=">Inventory Report</a>
 
-        <form action="MainController">
+        <form action="MainController" name="SRSearch" onsubmit="SRSearchForm();">
             <input type="text" name="productID" placeholder="productID">
             <input type="text" name="name" placeholder="Name">
             To<input type="date" name="date" required="">
             From<input type="date" name="date2"required="">
-            <input type="submit" name="action" value="ShowReport" >
+            <input type="hidden" name="action" value="ShowReport" >
+            <input type="submit" value="Show"/>
         </form>
         
         <div>
@@ -73,29 +74,37 @@
             <form action="MainController">
                 <tr>
                     <td>
-                        <input type="text" name="orderID" value="<%= count++ %>" required=""/>
+                        <%= count++ %>
                     </td>
                     <td>
-                        <input type="text" name="orderID" value="<%= tm.getProductID()%>" required=""/>
+                        <%= tm.getProductID()%>
                     </td>
                     <td>
-                        <input type="text" name="orderID" value="<%= tm.getName()%>" required=""/>
+                        <%= tm.getName()%>
                     </td>
                     <td>
-                        <input type="text" name="orderID" value="<%= tm.getBrand()%>" required=""/>
+                        <%= tm.getBrand()%>
                     </td>
                     <td>
-                        <input type="text" name="orderID" value="<%= tm.getQuantityBegin()%>" required=""/>
+                        <%= tm.getQuantityBegin()%>
                     </td>
                     <td>
-                        <input type="text" name="orderID" value="<%= tm.getQuantityEnd()%>" required=""/>
+                        <%= tm.getQuantityEnd()%>
                     </td>
                     <td>
-                        <input type="text" name="orderID" value="<%= tm.getImport()%>" required=""/>
+                        <%= tm.getImport()%>
                     </td>
                     <td>
-                        <input type="text" name="orderID" value="<%= tm.getExport()%>" required=""/>
+                        <%= tm.getExport()%>
                     </td>
+                <input type="hidden" name="orderID" value="<%= count++ %>" />
+                    <input type="hidden" name="orderID" value="<%= tm.getProductID()%>"/>
+                    <input type="hidden" name="orderID" value="<%= tm.getName()%>"/>
+                    <input type="hidden" name="orderID" value="<%= tm.getBrand()%>" />
+                    <input type="hidden" name="orderID" value="<%= tm.getQuantityBegin()%>" />
+                    <input type="hidden" name="orderID" value="<%= tm.getQuantityEnd()%>" />
+                    <input type="hidden" name="orderID" value="<%= tm.getImport()%>" />
+                    <input type="hidden" name="orderID" value="<%= tm.getExport()%>" />
                 </tr>
             </form>
             <%

@@ -53,16 +53,14 @@ public class AddReceiptController extends HttpServlet {
                     String note = "";
                     String accountantID = loginUser.getAccountID();
                     String stockKeeperID = request.getParameter("stockKeeperID");
-                    boolean checkS = dao.checkExistAccount(stockKeeperID);
-                    if (checkS == true) {
+                    //boolean checkS = dao.checkExistAccount(stockKeeperID);
+
                         UserReceiptVirtual tm = new UserReceiptVirtual(inputDate, status, totalQuantity, note, accountantID, stockKeeperID);
                         createReceipt = dao.createReceipt(tm);
                         if (createReceipt == true) {
                             url = SUCCESS;
                         }
-                    } else {
-                        request.setAttribute("VIRTUAL_RECEI_ERROR", "StockKeeperID does not exist. Please re-enter.");
-                    }
+                    
 
                 } else {
                     request.setAttribute("ERROR_FINISH", "You must add the product to the invoice.");

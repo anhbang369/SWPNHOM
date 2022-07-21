@@ -17,21 +17,22 @@
     </head>
     <body>
 
-        <form action="MainController">
+        <form action="MainController" name="PRSearch" onsubmit="PRSearchForm();">
             <input type="text" name="ProductID" placeholder="ProductID">
             <input type="text" name="Name" placeholder="Name">
-            <input type="text" name="Brand" placeholder="Brand">
-            <input type="text" name="Model" placeholder="Model">
-            <input type="submit" name="action" value="ShowProductReprot">
+            <input type="hidden" name="Brand" placeholder="Brand">
+            <input type="hidden" name="Model" placeholder="Model">
+            <input type="hidden" name="action" value="ShowProductReprot">
+            <input type="submit" value="Search"/>
         </form>
-        
+
         <%
-    String errorSearch = (String) request.getAttribute("ERROR_SEARCH");
-    if (errorSearch == null) {
-        errorSearch = "";
-    }
-%>
-<h2><%=errorSearch%></h2>
+            String errorSearch = (String) request.getAttribute("ERROR_SEARCH");
+            if (errorSearch == null) {
+                errorSearch = "";
+            }
+        %>
+        <h2><%=errorSearch%></h2>
 
 
         <%
@@ -44,8 +45,6 @@
                 <tr>
                     <th>ProductID</th>
                     <th>Name</th>
-                    <th>Brand</th>
-                    <th>Model</th>
                     <th>quality</th>
                     <th>quantityInChecking</th>
                     <th>note</th>
@@ -55,32 +54,31 @@
                 <%
                     for (UserProduct rc : product) {
                 %>
-            <form action="MainController">
+            <form action="MainController" name="APRSearch" onsubmit="APRSearchForm();">
                 <tr>
                     <td>
-                        <input type="text" name="productID" value="<%=rc.getProductID()%>"/>
+                        <input type="hidden" name="productID" value="<%=rc.getProductID()%>"/>
+                        <%=rc.getProductID()%>
                     </td>
                     <td>
-                        <input type="text" name="name" value="<%=rc.getName()%>"/>
+                        <input type="hidden" name="name" value="<%=rc.getName()%>"/>
+                        <%=rc.getName()%>
                     </td>
-                    <td>
-                        <input type="text" name="brand" value="<%=rc.getBrand()%>"/>
-                    </td>
-                    <td>
-                        <input type="text" name="model" value="<%=rc.getModel()%>"/>
-                    </td>
-                    <td>
-                        <input type="number" name="quality" required="" min="1"/>
-                    </td>
-                    <td>
-                        <input type="number" name="quantityInChecking" required="" min="1"/>
-                    </td>
-                    <td>
-                        <input type="text" name="note" required=""/>
-                    </td>
-                    <td>
-                        <input type="submit" name="action" value="AddVirtualInventory"/>
-                    </td>
+                <input type="hidden" name="brand" value="<%=rc.getBrand()%>"/>
+                <input type="hidden" name="model" value="<%=rc.getModel()%>"/>
+                <td>
+                    <input type="number" name="quality" required="" min="1"/>
+                </td>
+                <td>
+                    <input type="number" name="quantityInChecking" required="" min="1"/>
+                </td>
+                <td>
+                    <input type="text" name="note" required=""/>
+                </td>
+                <td>
+                    <input type="hidden" name="action" value="AddVirtualInventory"/>
+                    <input type="submit" value="Add"/>
+                </td>
                 </tr>
             </form>
             <%
@@ -92,15 +90,15 @@
             }
         }
     %>  
-    
-    
+
+
     <%
-    String errorCheck = (String) request.getAttribute("ERROR_CHECK");
-    if (errorCheck == null) {
-        errorCheck = "";
-    }
-%>
-<h2><%=errorCheck%></h2>
+        String errorCheck = (String) request.getAttribute("ERROR_CHECK");
+        if (errorCheck == null) {
+            errorCheck = "";
+        }
+    %>
+    <h2><%=errorCheck%></h2>
 
 
     <h3>Product Will Add Detail</h3>
@@ -125,13 +123,14 @@
                 int count = 1;
                 for (UserInventoryVirtual tm : rd.getListInventory().values()) {
             %>
-        <form action="MainController">
+        <form action="MainController" name="AVRSearch" onsubmit="AVRSearchForm();">
             <tr>
                 <td>
-                    <input type="text" name="" value="<%= count++%>" readonly=""/>
+                    <%= count++%>
                 </td>
                 <td>
-                    <input type="text" name="productID" value="<%= tm.getProductID()%>" readonly=""/>
+                    <input type="hidden" name="productID" value="<%= tm.getProductID()%>" readonly=""/>
+                    <%= tm.getProductID()%>
                 </td>
                 <td>
                     <input type="text" name="quality" value="<%= tm.getQuality()%>" required="" min="1"/>
@@ -143,10 +142,12 @@
                     <input type="text" name="note" value="<%= tm.getNote()%>" required=""/>
                 </td>
                 <td>
-                    <input type="submit" name="action" value="UpdateInventoryVirtua" readonly=""/>
+                    <input type="hidden" name="action" value="UpdateInventoryVirtua" readonly=""/>
+                    <input type="submit" value="Update"/>
                 </td>
                 <td>
-                    <input type="submit" name="action" value="RemoveInventoryVirtual" readonly=""/>
+                    <!--                    <input type="submit" name="action" value="RemoveInventoryVirtual" readonly=""/>-->
+                    <a href="MainController?action=RemoveInventoryVirtual&productID=<%= tm.getProductID()%>">Delete</a>
                 </td>
             </tr>
         </form>

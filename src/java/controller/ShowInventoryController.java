@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ShowInventoryController", urlPatterns = {"/ShowInventoryController"})
 public class ShowInventoryController extends HttpServlet {
 
-    private static final String ERROR="haha.jsp";
+    private static final String ERROR="createInventory.jsp";
     private static final String SUCCESS="createSuccessInventory.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -33,7 +33,7 @@ public class ShowInventoryController extends HttpServlet {
             int report = dao.getReportID();
             List<UserInventoryFull> listDetail = dao.getListShowReportFull(report);
             if(listDetail.size() >0){
-                request.setAttribute("LIST_DETAIL_RECEIPT", listDetail);
+                request.setAttribute("LIST_DETAIL_INVENTORY", listDetail);
                 url = SUCCESS;
             }
         }catch(Exception e){

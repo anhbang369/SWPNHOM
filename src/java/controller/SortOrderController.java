@@ -7,7 +7,6 @@ package controller;
 
 import issueAccountant.UserOrder;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -16,8 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sort.SortOrderCusA;
-import sort.SortOrderCusD;
+import sort.SortOrderDateA;
+import sort.SortOrderDateD;
 
 /**
  *
@@ -37,10 +36,10 @@ public class SortOrderController extends HttpServlet {
             HttpSession session = request.getSession();
             List<UserOrder> receipt = (List<UserOrder>) session.getAttribute("LIST_ORDER");
             if(search.equalsIgnoreCase("1")){
-                Collections.sort(receipt, new SortOrderCusA());
+                Collections.sort(receipt, new SortOrderDateA());
                 url=SUCCESS;
             }else{
-                Collections.sort(receipt, new SortOrderCusD()); 
+                Collections.sort(receipt, new SortOrderDateD()); 
                 url=SUCCESS;
             }
 

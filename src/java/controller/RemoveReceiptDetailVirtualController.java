@@ -21,7 +21,7 @@ import virtual.ListReceiptM;
 @WebServlet(name = "RemoveReceiptDetailVirtualController", urlPatterns = {"/RemoveReceiptDetailVirtualController"})
 public class RemoveReceiptDetailVirtualController extends HttpServlet {
 
-    private static final String ERROR="error.jsp";
+    private static final String ERROR="createReceiptDetail.jsp";
     private static final String SUCCESS="createReceiptDetail.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

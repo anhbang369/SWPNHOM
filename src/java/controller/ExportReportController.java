@@ -35,7 +35,7 @@ import user.UserDTO;
 @WebServlet(name = "ExportReportController", urlPatterns = {"/ExportReportController"})
 public class ExportReportController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
+    private static final String ERROR = "report.jsp";
     private static final String SUCCESS = "report.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

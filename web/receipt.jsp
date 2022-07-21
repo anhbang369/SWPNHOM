@@ -4,6 +4,7 @@
     Author     : 84348
 --%>
 
+<%@page import="virtual.ListNotify"%>
 <%@page import="receiptAccountant.UserReceiptDetailS"%>
 <%@page import="user.UserNotify"%>
 <%@page import="user.UserProduct"%>
@@ -25,11 +26,12 @@
         <a href="report.jsp">Report</a>
         <a href="MainController?action=SearchInventoryAlpha&productID=&name=">Inventory Report</a>
 
-        <a href="createReceiptDetail.jsp">Create</a>
+        <a href="MainController?action=LoadAccount">Create</a>
 
-        <form action="MainController">
+        <form action="MainController" name="RSearch" onsubmit="RSearchForm();">
             <input type="text" name="search" placeholder="By Receipt ID"/>
-            <input type="submit" name="action" value="SeacrhReceipt"/>
+            <input type="hidden" name="action" value="SeacrhReceipt"/>
+            <input type="submit" value="Search"/>
         </form>
 
         <form action="">
@@ -38,17 +40,18 @@
 
         </form>
         <div class="show_date_receipt" id="showDateReceipt">
-            <form action="MainController">
+            <form action="MainController" name="RdSearch" onsubmit="RdSearchForm();">
                 Search<input type="date" name="search"/>
                 To<input type="date" name="searchR" />
-                <input type="submit" name="action" value="SearchReceiptDate"/>
+                <input type="hidden" name="action" value="SearchReceiptDate"/>
+                <input type="submit" value="Search"/>
             </form>
         </div>
-        
-        
+
+
         <div>
             <i class="fa-solid fa-sort" onclick="ShowSort()"></i>
-            
+
         </div>
         <div id="sortLabel" class="show_date_receipt">
             <form action="MainController">
@@ -67,12 +70,13 @@
         </form>
 
         <%
-            List<UserNotify> product = (List<UserNotify>) request.getAttribute("LIST_NOTIFY");
-            if (product != null) {
-                if (product.size() > 0) {
+
+            ListNotify rd = (ListNotify) session.getAttribute("LIST_NOTIFY");
+            if (rd != null) {
+                if (rd.getListNotify().size() > 0) {
         %>
-        <div class="number" id="sa<%= product.size()%>">
-            <%= product.size()%>
+        <div class="number" id="sa<%= rd.getListNotify().size()%>">
+            <%= rd.getListNotify().size()%>
         </div>
         <div class="notification_head" id="showValue">
             <header class="head_notify">
@@ -81,11 +85,11 @@
                 </h3>
             </header>
             <%
-                for (UserNotify list : product) {
+                for (UserNotify tm : rd.getListNotify().values()) {
             %>
             <ul>
                 <li class="notify_list">
-                    <span> Mặc hàng <%= list.getName()%> trong kho đang ở mức báo động. Cần xem xét nhập hàng </span>
+                    <span> Mặc hàng <%= tm.getName()%> trong kho đang ở mức báo động. Cần xem xét nhập hàng </span>
                 </li>
 
             </ul>
@@ -115,41 +119,41 @@
                     <th>Status</th>
                     <th>Total Quantity</th>
                     <th>Note</th>
-                    <th>accountantID</th>
-                    <th>stockKeeperID</th>
                 </tr>
             </thead>
             <tbody>
                 <%
                     for (UserReceipt rc : receipt) {
                 %>
-            <form action="MainController">
+            <form action="MainController" name="SRDSearch" onsubmit="SRDSearchForm();">
                 <tr>
                     <td>
-                        <input type="text" name="receiptID" value="<%= rc.getReceiptID()%>" readonly=""/>
+                        <%= rc.getReceiptID()%>
                     </td>
                     <td>
-                        <input type="text" name="productID" value="<%= rc.getInputDate()%>" readonly=""/>
+                        <%= rc.getInputDate()%>
                     </td>
                     <td>
-                        <input type="text" name="productID" value="<%= rc.getStatus()%>" readonly=""/>
+                        <%= rc.getStatus()%>
                     </td>
                     <td>
-                        <input type="text" name="productID" value="<%= rc.getTotalQuantity()%>" readonly=""/>
+                        <%= rc.getTotalQuantity()%>
                     </td>
                     <td>
-                        <input type="text" name="productID" value="<%= rc.getNote()%>" readonly=""/>
+                        <%= rc.getNote()%>
                     </td>
                     <td>
-                        <input type="text" name="productID" value="<%= rc.getAccountantID()%>" readonly=""/>
-                    </td>
-                    <td>
-                        <input type="text" name="productID" value="<%= rc.getStockKeeperID()%>" readonly=""/>
-                    </td>
-                    <td>
-                        <input type="submit" name="action" value="ShowDetailReceipt" readonly=""/>
+                        <input type="hidden" name="action" value="ShowDetailReceipt" readonly="" />
+                        <input type="submit" value="Show"/>
                     </td>
                 </tr>
+                <input type="hidden" name="receiptID" value="<%= rc.getReceiptID()%>" readonly=""/>
+                <input type="hidden" name="productID" value="<%= rc.getInputDate()%>" readonly=""/>
+                <input type="hidden" name="productID" value="<%= rc.getStatus()%>" readonly=""/>
+                <input type="hidden" name="productID" value="<%= rc.getTotalQuantity()%>" readonly=""/>
+                <input type="hidden" name="productID" value="<%= rc.getNote()%>" readonly=""/>
+                <input type="hidden" name="productID" value="<%= rc.getAccountantID()%>" readonly=""/>
+                <input type="hidden" name="productID" value="<%= rc.getStockKeeperID()%>" readonly=""/>
             </form>
             <%
                 }
@@ -175,7 +179,6 @@
                     <th>quantityInBill</th>
                     <th>quantityInShipping</th>
                     <th>productID</th>
-                    <th>receiptID</th>
                     <th>solution</th>
                 </tr>
             </thead>
@@ -185,28 +188,32 @@
                 %>
                 <tr>
                     <td>
-                        <input type="text" name="orderDetailID" value="<%= tm.getReceiptDetailID()%>" readonly=""/>
+                        <%= tm.getReceiptDetailID()%>
                     </td>
                     <td>
-                        <input type="text" name="quantity" value="<%= tm.getQuantityInBill()%>" readonly=""/>
+                        <%= tm.getQuantityInBill()%>
                     </td>
                     <td>
-                        <input type="text" name="orderID" value="<%= tm.getQuantityInShipping()%>" readonly=""/>
+                        <%= tm.getQuantityInShipping()%>
                     </td>
                     <td>
-                        <input type="text" name="productID" value="<%= tm.getProductID()%>" readonly=""/>
+                        <%= tm.getProductID()%>
                     </td>
                     <td>
-                        <input type="text" name="productID" value="<%= tm.getReceiptID()%>" readonly=""/>
-                    </td>
-                    <td>
-                        <input type="text" name="productID" value="<%= tm.getSolution()%>" readonly=""/>
+                        <%= tm.getSolution()%>
                     </td>
 
-                </tr>
-                <%
-                    }
-                %>
+            <input type="hidden" name="orderDetailID" value="<%= tm.getReceiptDetailID()%>" readonly=""/>
+            <input type="hidden" name="quantity" value="<%= tm.getQuantityInBill()%>" readonly=""/>
+            <input type="hidden" name="orderID" value="<%= tm.getQuantityInShipping()%>" readonly=""/>
+            <input type="hidden" name="productID" value="<%= tm.getProductID()%>" readonly=""/>
+            <input type="hidden" name="productID" value="<%= tm.getReceiptID()%>" readonly=""/>
+            <input type="hidden" name="productID" value="<%= tm.getSolution()%>" readonly=""/>
+
+            </tr>
+            <%
+                }
+            %>
             <input type="button" value="Close" onclick="ShowDetailOrder()">
             </tbody>          
         </table>

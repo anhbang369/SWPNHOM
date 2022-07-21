@@ -106,6 +106,12 @@ public class MainController extends HttpServlet {
     private static final String SORT_ORDER_CONTROLLER = "SortOrderController";
     private static final String SEARCH_ISSUE_DATE = "SearchIssueDate";
     private static final String SEARCH_ISSUE_DATE_CONTROLLER = "SearchIssueDateController";
+    private static final String LOAD_ACCOUNT = "LoadAccount";
+    private static final String LOAD_ACCOUNT_CONTROLLER = "LoadAccountController";
+    private static final String PRODUCT_ACCOUNTANT = "SearchProductAccount";
+    private static final String PRODUCT_ACCOUNTANT_CONTROLLER = "SearchProductAccountController";
+    private static final String VIEW_PRODUCT_ACCOUNTANT = "View";
+    private static final String VIEW_PRODUCT_ACCOUNTANT_CONTROLLER = "ViewController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -200,6 +206,12 @@ public class MainController extends HttpServlet {
                 url = SORT_ORDER_CONTROLLER;
             }else if(SEARCH_ISSUE_DATE.equals(action)){
                 url = SEARCH_ISSUE_DATE_CONTROLLER;
+            }else if(LOAD_ACCOUNT.equals(action)){
+                url = LOAD_ACCOUNT_CONTROLLER;
+            }else if(PRODUCT_ACCOUNTANT.equals(action)){
+                url = PRODUCT_ACCOUNTANT_CONTROLLER;
+            }else if(VIEW_PRODUCT_ACCOUNTANT.equals(action)){
+                url = VIEW_PRODUCT_ACCOUNTANT_CONTROLLER;
             }
         }catch(Exception e){
             e.printStackTrace();

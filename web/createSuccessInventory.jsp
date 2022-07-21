@@ -21,7 +21,7 @@
 
         <form action="MainController">
             <%
-                List<UserInventoryFull> list = (List<UserInventoryFull>) request.getAttribute("LIST_DETAIL_RECEIPT");
+                List<UserInventoryFull> list = (List<UserInventoryFull>) request.getAttribute("LIST_DETAIL_INVENTORY");
                 if (list != null) {
                     if (list.size() > 0) {
 

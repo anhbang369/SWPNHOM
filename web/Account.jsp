@@ -14,6 +14,7 @@
     <body>
         <form action="MainController" method="POST">
         <input type="submit" name="action" value="Logout">
+        <a href="productAccount.jsp">Product</a>
         <a href="MainController?action=SeacrhReceipt&search=">Receipt</a>
         <a href="MainController?action=SeacrhOrder&OrderI=&CustomerNam=&Addres=&PhoneNumbe=">Issue</a>
         <a href="report.jsp">Report</a>

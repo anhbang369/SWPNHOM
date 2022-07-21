@@ -15,7 +15,7 @@
     </head>
     <body>
         
-        <form action="MainController">
+        <form action="MainController" name="CISearch" onsubmit="CISearchForm();">
             <%
                 List<UserIssueFull> list = (List<UserIssueFull>) request.getAttribute("LIST_ISSUE_FULLL");
                 if (list != null) {
@@ -96,11 +96,13 @@
             
            
                 <input type="text" name="notee" placeholder="Enter Conclusion">
-                <input type="submit" name="action" value="UpdateIssue"/>
+                <input type="hidden" name="action" value="UpdateIssue"/>
+                <input type="submit" value="Conclusion"/>
+                <input type="submit" name="action" value="ExportIssue">
 
             
-            <input type="submit" name="action" value="ExportIssue">
+            
         </form>
-
+        
     </body>
 </html>

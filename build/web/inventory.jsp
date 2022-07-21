@@ -23,10 +23,11 @@
         <a href="MainController?action=SearchInventoryAlpha&productID=&name=">Inventory Report</a>
         <a href="createInventory.jsp">Create Inventory</a>
 
-        <form action="MainController">
+        <form action="MainController" name="SRISearch" onsubmit="SRISearchForm();">
             <input type="text" name="productID" placeholder="ProductID"/>
             <input type="text" name="name" placeholder="Product Name" />
-            <input type="submit" name="action" value="SearchInventoryAlpha"/>
+            <input type="hidden" name="action" value="SearchInventoryAlpha"/>
+            <input type="submit" value="Search"/>
         </form>
 
 
@@ -36,10 +37,11 @@
 
         </form>
         <div class="show_date_receipt" id="showDateReceipt">
-            <form action="MainController">
+            <form action="MainController" name="SRIdSearch" onsubmit="SRIdSearchForm();">
                 Search<input type="date" name="searchInventory"/>
                 To<input type="date" name="searchInventoryM" />
-                <input type="submit" name="action" value="SearchInventory"/>
+                <input type="hidden" name="action" value="SearchInventory"/>
+                <input type="submit" value="Search"/>
             </form>
         </div>
         
@@ -83,22 +85,22 @@
                 %>
                 <tr>
                     <td>
-                        <input type="text" name="productID" value="<%= rc.getProductID()%>" readonly=""/>
+                        <%= rc.getProductID()%>
                     </td>
                     <td>
-                        <input type="text" name="name" value="<%= rc.getName()%>" readonly=""/>
+                        <%= rc.getName()%>
                     </td>
                     <td>
-                        <input type="text" name="checkingDate" value="<%= rc.getCheckingDate()%>" readonly=""/>
+                        <%= rc.getCheckingDate()%>
                     </td>
                     <td>
-                        <input type="text" name="quantityInChecking" value="<%= rc.getQuantityInChecking()%>" readonly=""/>
+                        <%= rc.getQuantityInChecking()%>
                     </td>
                     <td>
-                        <input type="text" name="quantity" value="<%= rc.getQuantity()%>" readonly=""/>
+                        <%= rc.getQuantity()%>
                     </td>
                     <td>
-                        <input type="text" name="quality" value="<%= rc.getQuality()%>" readonly=""/>
+                        <%= rc.getQuality()%>
                     </td>
                     <%
                         float a = (float) (rc.getQuantity() - rc.getQuantityInChecking()) / rc.getQuantity();
@@ -116,11 +118,19 @@
                         
                     %>
                     <td>
-                        <input type="text" name="productID" value="<%= isMax %>%" readonly=""/>
+                        <%= isMax %>%
                     </td>
                     <td>
-                        <input type="text" name="productID" value="<%= rc.getNote()%>" readonly=""/>
+                        <%= rc.getNote()%>
                     </td>
+            <input type="hidden" name="productID" value="<%= rc.getProductID()%>" readonly=""/>
+                    <input type="hidden" name="name" value="<%= rc.getName()%>" readonly=""/>
+                    <input type="hidden" name="checkingDate" value="<%= rc.getCheckingDate()%>" readonly=""/>
+                    <input type="hidden" name="quantityInChecking" value="<%= rc.getQuantityInChecking()%>" readonly=""/>
+                    <input type="hidden" name="quantity" value="<%= rc.getQuantity()%>" readonly=""/>
+                    <input type="hidden" name="quality" value="<%= rc.getQuality()%>" readonly=""/>
+                    <input type="hidden" name="deviant" value="<%= isMax %>%" readonly=""/>
+                    <input type="hidden" name="note" value="<%= rc.getNote()%>" readonly=""/>
                 </tr>
                 <%
                     }

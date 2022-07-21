@@ -36,7 +36,7 @@ import user.UserDTO;
 @WebServlet(name = "ExportInventoryController", urlPatterns = {"/ExportInventoryController"})
 public class ExportInventoryController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
+    private static final String ERROR = "MainController?action=ShowInventory";
     private static final String SUCCESS = "MainController?action=SearchInventoryAlpha&productID=&name=";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

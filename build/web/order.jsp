@@ -4,6 +4,7 @@
     Author     : 84348
 --%>
 
+<%@page import="virtual.ListNotify"%>
 <%@page import="user.UserNotify"%>
 <%@page import="issueAccountant.UserOrder"%>
 <%@page import="java.util.List"%>
@@ -22,12 +23,13 @@
         <a href="MainController?action=SeacrhOrder&OrderI=&CustomerNam=&Addres=&PhoneNumbe=">Issue</a>
         <a href="report.jsp">Report</a>
         <a href="MainController?action=SearchInventoryAlpha&productID=&name=">Inventory Report</a>
-        <form action="MainController">
+        <form action="MainController" name="OOSearch" onsubmit="OOSearchForm();">
             <input type="number" name="OrderI" placeholder="OrderID"/>
-            <input type="text" name="CustomerNam" placeholder="CustomerName"/>
-            <input type="text" name="Addres" placeholder="Address"/>
-            <input type="number" name="PhoneNumbe" placeholder="PhoneNumber"/>
-            <input type="submit" name="action" value="SeacrhOrder"/>
+            <input type="hidden" name="CustomerNam" placeholder="CustomerName"/>
+            <input type="hidden" name="Addres" placeholder="Address"/>
+            <input type="hidden" name="PhoneNumbe" placeholder="PhoneNumber"/>
+            <input type="hidden" name="action" value="SeacrhOrder"/>
+            <input type="submit" value="Search"/>
         </form>
 
         <form action="">
@@ -36,10 +38,11 @@
       
     </form>
     <div class="show_date_receipt" id="showDateReceipt">
-        <form action="MainController">
+        <form action="MainController" name="OdSearch" onsubmit="OdSearchForm();">
             Search<input type="date" name="search"/>
             To<input type="date" name="searchM" />
-            <input type="submit" name="action" value="SearchOrderDate"/>
+            <input type="hidden" name="action" value="SearchOrderDate"/>
+            <input type="submit" value="Search"/>
         </form>
     </div>
         
@@ -52,8 +55,8 @@
             <form action="MainController">
                 <label>Sort by: </label>
                 <select name="search">
-                    <option value="1">Customer reduce</option>
-                    <option value="2">Customer increase</option>
+                    <option value="1">Old date</option>
+                    <option value="2">New date</option>
                 </select>
                 <input type="submit" name="action" value="SortOrder">
             </form>
@@ -64,15 +67,16 @@
             <i class="fa-regular fa-bell" value="show" onclick="ShowNotify()"></i>
         </form>
         <%
-            List<UserNotify> product = (List<UserNotify>) request.getAttribute("LIST_NOTIFY");
-            if (product != null) {
-                if (product.size() > 0) {
+
+            ListNotify rd = (ListNotify) session.getAttribute("LIST_NOTIFY");
+            if (rd != null) {
+                if (rd.getListNotify().size() > 0) {
         %>
         
         
         
-        <div class="number" id="sa<%= product.size()%>">
-                <%= product.size() %>
+        <div class="number" id="sa<%= rd.getListNotify().size()%>">
+                <%= rd.getListNotify().size()%>
             </div>
         <div class="notification_head" id="showValue">
             <header class="head_notify">
@@ -81,11 +85,11 @@
                 </h3>
             </header>
             <%
-                for (UserNotify list : product) {
+                for (UserNotify tm : rd.getListNotify().values()) {
             %>
             <ul>
                 <li class="notify_list">
-                    <span> Mặc hàng <%= list.getName()%> trong kho đang ở mức báo động. Cần xem xét nhập hàng </span>
+                    <span> Mặc hàng <%= tm.getName()%> trong kho đang ở mức báo động. Cần xem xét nhập hàng </span>
                 </li>
 
             </ul>
@@ -114,48 +118,45 @@
             <thead>
                 <tr>
                     <th>OrderID</th>
-                    <th>CustomerName</th>
-                    <th>Address</th>
-                    <th>PhoneNumber</th>
                     <th>Status</th>
-                    <th>note</th>
                     <th>deliveryDate</th>
                     <th>sellerID</th>
+                    <th>note</th>
                 </tr>
             </thead>
             <tbody>
                 <%
                     for (UserOrder rc : order) {
                 %>
-            <form action="MainController">
+            <form action="MainController" name="OISearch" onsubmit="OISearchForm();">
                 <tr>
                     <td>
-                        <input type="text" name="orderID" value="<%= rc.getOrderID()%>" readonly=""/>
+                        <%= rc.getOrderID()%>
                     </td>
                     <td>
-                        <input type="text" name="customerName" value="<%= rc.getCustomerName()%>" readonly=""/>
+                        <%= rc.getStatus()%>
                     </td>
                     <td>
-                        <input type="text" name="address" value="<%= rc.getAddress()%>" readonly=""/>
+                        <%= rc.getDeliveryDate()%>
                     </td>
                     <td>
-                        <input type="text" name="phoneNumber" value="<%= rc.getPhoneNumber()%>" readonly=""/>
+                        <%= rc.getSellerID()%>
                     </td>
                     <td>
-                        <input type="text" name="status" value="<%= rc.getStatus()%>" readonly=""/>
+                        <%= rc.getNote()%>
                     </td>
                     <td>
-                        <input type="text" name="note" value="<%= rc.getNote()%>" readonly=""/>
+                        <input type="hidden" name="action" value="InsertIssue" />
+                        <input type="submit" value="Add"/>
                     </td>
-                    <td>
-                        <input type="text" name="deliveryDate" value="<%= rc.getDeliveryDate()%>" readonly=""/>
-                    </td>
-                    <td>
-                        <input type="text" name="sellerID" value="<%= rc.getSellerID()%>" />
-                    </td>
-                    <td>
-                        <input type="submit" name="action" value="InsertIssue" />
-                    </td>
+                <input type="hidden" name="orderID" value="<%= rc.getOrderID()%>" readonly=""/>
+                    <input type="hidden" name="customerName" value="<%= rc.getCustomerName()%>" readonly=""/>
+                    <input type="hidden" name="address" value="<%= rc.getAddress()%>" readonly=""/>
+                    <input type="hidden" name="phoneNumber" value="<%= rc.getPhoneNumber()%>" readonly=""/>
+                    <input type="hidden" name="status" value="<%= rc.getStatus()%>" readonly=""/>
+                    <input type="hidden" name="note" value="<%= rc.getNote()%>" readonly=""/>
+                    <input type="hidden" name="deliveryDate" value="<%= rc.getDeliveryDate()%>" readonly=""/>
+                    <input type="hidden" name="sellerID" value="<%= rc.getSellerID()%>" />
                 </tr>
             </form>
             <%

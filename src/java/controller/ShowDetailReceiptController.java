@@ -22,7 +22,7 @@ import receiptAccountant.UserReceiptDetailS;
 @WebServlet(name = "ShowDetailReceiptController", urlPatterns = {"/ShowDetailReceiptController"})
 public class ShowDetailReceiptController extends HttpServlet {
 
-    private static final String ERROR="error.jsp";
+    private static final String ERROR="MainController?action=SeacrhReceipt&search=&searchSeceond=";
     private static final String SUCCESS="MainController?action=SortReceipt";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
